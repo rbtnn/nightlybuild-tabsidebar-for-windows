@@ -1,0 +1,75 @@
+name: nightlybuild-tabsidebar-for-windows
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - shell: cmd
+        run: |
+          git config --global user.email "naru123456789@gmail.com"
+          git config --global user.name "rbtnn"
+          git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
+          cd vim
+          git remote add upstream https://github.com/vim/vim.git
+          git fetch upstream
+          git merge upstream/master
+          git push -u origin tabsidebar
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+
+      - shell: cmd
+        run: |
+          cd vim\src
+          nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+          nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+          move gvim.exe gvim-x86.exe
+          move vim.exe  vim-x86.exe
+
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - shell: cmd
+        run: |
+          cd vim\src
+          nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+          nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+          move gvim.exe gvim-x64.exe
+          move vim.exe  vim-x64.exe
+
+      - run: powershell -Command Compress-Archive -Path vim\runtime -DestinationPath runtime.zip
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: gvim-x86.exe
+          path: vim\src\gvim-x86.exe
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: vim-x86.exe
+          path: vim\src\vim-x86.exe
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: gvim-x64.exe
+          path: vim\src\gvim-x64.exe
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: vim-x64.exe
+          path: vim\src\vim-x64.exe
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: runtime.zip
+          path: runtime.zip
+
