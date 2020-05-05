@@ -2,7 +2,7 @@ name: nightlybuild-tabsidebar-for-windows
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 15 * * *'
 
 jobs:
 
