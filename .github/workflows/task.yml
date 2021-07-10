@@ -1,6 +1,7 @@
 name: nightlybuild-tabsidebar-for-windows
 
 on:
+  push:
   schedule:
     - cron: '0 15 * * *'
 
@@ -10,6 +11,20 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - uses: actions/checkout@v2
+        with:
+          command: build
+          args: --release
+
+      - shell: cmd
+        run: |
+          git config --global user.email "naru123456789@gmail.com"
+          git config --global user.name "rbtnn"
+          date /t > dummy.txt
+          git add dummy.txt
+          git commit -m "update dummy.txt"
+          git push -u origin master
+
       - shell: cmd
         run: |
           git config --global user.email "naru123456789@gmail.com"
