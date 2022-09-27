@@ -19,8 +19,7 @@ jobs:
         run: |
           git config --global user.email "naru123456789@gmail.com"
           git config --global user.name "rbtnn"
-          git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
-          cd vim
+          git clone --depth 1 https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
 
       - name: Checkout ilammy/msvc-dev-cmd@v1
         uses: ilammy/msvc-dev-cmd@v1
@@ -44,5 +43,5 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: nightlybuild-tabsidebar-for-windows.zip
-          path: nightlybuild-tabsidebar-for-windows.zip
+          path: vim\nightlybuild-tabsidebar-for-windows.zip
 
