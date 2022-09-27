@@ -1,0 +1,48 @@
+name: all-in-one
+
+on:
+  push:
+  schedule:
+    - cron: '30 15 * * *'
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout actions/checkout@v2
+        uses: actions/checkout@v2
+
+      - name: Clone tabsidebar repository
+        shell: cmd
+        run: |
+          git config --global user.email "naru123456789@gmail.com"
+          git config --global user.name "rbtnn"
+          git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
+          cd vim
+
+      - name: Checkout ilammy/msvc-dev-cmd@v1
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+
+      - name: Build Vim for x86
+        shell: cmd
+        run: |
+          cd vim\src
+          nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+          nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+
+      - name: all-in-one.bat
+        shell: cmd
+        run: |
+          cd vim
+          all-in-one.bat
+
+      - name: Upload nightlybuild-tabsidebar-for-windows.zip
+        uses: actions/upload-artifact@v1
+        with:
+          name: nightlybuild-tabsidebar-for-windows.zip
+          path: nightlybuild-tabsidebar-for-windows.zip
+
