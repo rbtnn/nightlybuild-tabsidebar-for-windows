@@ -34,11 +34,8 @@ copy src\xxd\xxd.exe   "%NAME%"
 copy src\tee\tee.exe   "%NAME%"
 xcopy /S runtime       "%NAME%\runtime"
 
-if exist "%NAME%.zip" (
-	del /Q "%NAME%.zip"
-)
-powershell -Command Compress-Archive -Path "%NAME%" -DestinationPath "%NAME%.zip"
-if exist "%NAME%" (
-	rmdir /S /Q "%NAME%"
-)
+rem if exist "%NAME%.zip" (
+rem 	del /Q "%NAME%.zip"
+rem )
+rem powershell -Command Compress-Archive -Path "%NAME%" -DestinationPath "%NAME%.zip"
 
