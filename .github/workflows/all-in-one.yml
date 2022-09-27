@@ -37,7 +37,7 @@ jobs:
         shell: cmd
         run: |
           cd vim
-          all-in-one.bat
+          ..\all-in-one.bat
 
       - name: Upload nightlybuild-tabsidebar-for-windows.zip
         uses: actions/upload-artifact@v1
