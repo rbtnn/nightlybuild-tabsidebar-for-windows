@@ -14,16 +14,6 @@ jobs:
       - name: Checkout actions/checkout@v2
         uses: actions/checkout@v2
 
-      - name: Update dummy.txt
-        shell: cmd
-        run: |
-          git config --global user.email "naru123456789@gmail.com"
-          git config --global user.name "rbtnn"
-          date /t > dummy.txt
-          git add dummy.txt
-          git commit -m "update dummy.txt"
-          git push -u origin master
-
       - name: Update tabsidebar repository
         shell: cmd
         run: |
@@ -63,6 +53,18 @@ jobs:
           nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
           move gvim.exe gvim-x64.exe
           move vim.exe  vim-x64.exe
+
+      - name: Update dummy.txt and version.txt
+        shell: cmd
+        run: |
+          git config --global user.email "naru123456789@gmail.com"
+          git config --global user.name "rbtnn"
+          date /t > dummy.txt
+          git add dummy.txt
+          vim\src\vim.exe -u NONO -N --cmd ":call writefile(split(execute('version'), '\n'), 'version.txt')" --cmd ":qa!"
+          git add version.txt
+          git commit -m "update dummy.txt and version.txt"
+          git push -u origin master
 
       - name: Compress vim\runtime
         run: powershell -Command Compress-Archive -Path vim\runtime -DestinationPath runtime.zip
