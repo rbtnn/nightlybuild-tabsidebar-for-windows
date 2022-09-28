@@ -22,8 +22,8 @@ jobs:
           git clone --depth 1 https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
           cd vim
           git remote add upstream https://github.com/vim/vim.git
-          git fetch upstream
-          git merge --depth 1 upstream/master
+          git fetch --depth 1 upstream
+          git merge upstream/master
           git push -u origin tabsidebar
 
       - name: Checkout ilammy/msvc-dev-cmd@v1
