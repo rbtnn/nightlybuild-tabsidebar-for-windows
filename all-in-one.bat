@@ -32,10 +32,6 @@ curl -L https://github.com/universal-ctags/ctags-win32/releases/download/2022-09
 
 copy src\gvim-x86.exe      "%NAME%\gvim.exe"
 copy src\vim-x86.exe       "%NAME%\vim.exe"
-copy src\gvim-x86.exe      "%NAME%"
-copy src\vim-x86.exe       "%NAME%"
-copy src\gvim-x64.exe      "%NAME%"
-copy src\vim-x64.exe       "%NAME%"
 copy src\vimrun.exe    "%NAME%"
 copy src\xxd\xxd.exe   "%NAME%"
 copy src\tee\tee.exe   "%NAME%"
