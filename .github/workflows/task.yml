@@ -61,7 +61,7 @@ jobs:
           git config --global user.name "rbtnn"
           date /t > dummy.txt
           git add dummy.txt
-          vim\src\vim.exe -u NONO -N --cmd ":call writefile(split(execute('version'), '\n'), 'version.txt')" --cmd ":qa!"
+          vim\src\vim-x86.exe -u NONO -N --cmd ":call writefile(split(execute('version'), '\n'), 'version.txt')" --cmd ":qa!"
           git add version.txt
           git commit -m "update dummy.txt and version.txt"
           git push -u origin master
