@@ -23,7 +23,7 @@ jobs:
           cd vim
           git remote add upstream https://github.com/vim/vim.git
           git fetch upstream
-          git merge upstream/master
+          git merge --depth 1 upstream/master
           git push -u origin tabsidebar
 
       - name: Checkout ilammy/msvc-dev-cmd@v1
