@@ -19,7 +19,7 @@ jobs:
         run: |
           git config --global user.email "naru123456789@gmail.com"
           git config --global user.name "rbtnn"
-          git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
+          git clone --depth 1 https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
           cd vim
           git remote add upstream https://github.com/vim/vim.git
           git fetch upstream
@@ -54,20 +54,27 @@ jobs:
           move gvim.exe gvim-x64.exe
           move vim.exe  vim-x64.exe
 
-      - name: Update dummy.txt and version.txt
+      - name: Update version.txt
         shell: cmd
         run: |
           git config --global user.email "naru123456789@gmail.com"
           git config --global user.name "rbtnn"
-          date /t > dummy.txt
-          git add dummy.txt
           vim\src\vim-x86.exe -u NONO -N --cmd ":call writefile(split(execute('version'), '\n'), 'version.txt')" --cmd ":qa!"
           git add version.txt
-          git commit -m "update dummy.txt and version.txt"
+          git commit -m "update version.txt"
           git push -u origin master
 
-      - name: Compress vim\runtime
-        run: powershell -Command Compress-Archive -Path vim\runtime -DestinationPath runtime.zip
+      - name: all-in-one.bat
+        shell: cmd
+        run: |
+          cd vim
+          ..\all-in-one.bat
+
+      - name: Upload nightlybuild-tabsidebar-for-windows.zip
+        uses: actions/upload-artifact@v1
+        with:
+          name: nightlybuild-tabsidebar-for-windows
+          path: vim\nightlybuild-tabsidebar-for-windows
 
       - name: Upload gvim-x86.exe
         uses: actions/upload-artifact@v1
@@ -92,10 +99,3 @@ jobs:
         with:
           name: vim-x64.exe
           path: vim\src\vim-x64.exe
-
-      - name: Upload runtime.zip
-        uses: actions/upload-artifact@v1
-        with:
-          name: runtime.zip
-          path: runtime.zip
-
