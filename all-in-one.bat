@@ -1,6 +1,9 @@
 
 set NAME=nightlybuild-tabsidebar-for-windows
 
+if exist "%NAME%.zip" (
+	del /Q "%NAME%.zip"
+)
 if exist "%NAME%" (
 	rmdir /S /Q "%NAME%"
 )
@@ -46,3 +49,5 @@ copy winpty\ia32\bin\winpty-agent.exe         "%NAME%"
 copy winpty\ia32\bin\winpty-debugserver.exe   "%NAME%"
 copy ripgrep\ripgrep-13.0.0-i686-pc-windows-msvc\rg.exe    "%NAME%"
 copy ctags\ctags.exe    "%NAME%"
+
+powershell -Command Compress-Archive -Path "%NAME%" -DestinationPath "%NAME%.zip"
