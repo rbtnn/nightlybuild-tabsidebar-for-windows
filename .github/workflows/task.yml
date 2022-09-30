@@ -40,19 +40,19 @@ jobs:
           move gvim.exe gvim-x86.exe
           move vim.exe  vim-x86.exe
 
-      - name: Checkout ilammy/msvc-dev-cmd@v1
-        uses: ilammy/msvc-dev-cmd@v1
-        with:
-          arch: x64
-
-      - name: Build Vim for x64
-        shell: cmd
-        run: |
-          cd vim\src
-          nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
-          nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
-          move gvim.exe gvim-x64.exe
-          move vim.exe  vim-x64.exe
+#      - name: Checkout ilammy/msvc-dev-cmd@v1
+#        uses: ilammy/msvc-dev-cmd@v1
+#        with:
+#          arch: x64
+#
+#      - name: Build Vim for x64
+#        shell: cmd
+#        run: |
+#          cd vim\src
+#          nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+#          nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
+#          move gvim.exe gvim-x64.exe
+#          move vim.exe  vim-x64.exe
 
       - name: Update version.txt
         shell: cmd
@@ -69,36 +69,6 @@ jobs:
         run: |
           cd vim
           ..\all-in-one.bat
-          
-      - name: Upload gvim-x86.exe
-        uses: actions/upload-artifact@v1
-        with:
-          name: gvim-x86.exe
-          path: vim\src\gvim-x86.exe
-
-      - name: Upload vim-x86.exe
-        uses: actions/upload-artifact@v1
-        with:
-          name: vim-x86.exe
-          path: vim\src\vim-x86.exe
-
-      - name: Upload gvim-x64.exe
-        uses: actions/upload-artifact@v1
-        with:
-          name: gvim-x64.exe
-          path: vim\src\gvim-x64.exe
-
-      - name: Upload vim-x64.exe
-        uses: actions/upload-artifact@v1
-        with:
-          name: vim-x64.exe
-          path: vim\src\vim-x64.exe
-
-      - name: Upload 
-        uses: actions/upload-artifact@v1
-        with:
-          name: nightlybuild-tabsidebar-for-windows
-          path: vim\nightlybuild-tabsidebar-for-windows
 
       - name: Create Release
         id: create_release
@@ -118,7 +88,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./nightlybuild-tabsidebar-for-windows.zip
+          asset_path: ./vim/nightlybuild-tabsidebar-for-windows.zip
           asset_name: nightlybuild-tabsidebar-for-windows.zip
           asset_content_type: application/zip
           
