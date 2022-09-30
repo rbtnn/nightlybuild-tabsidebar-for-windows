@@ -69,13 +69,7 @@ jobs:
         run: |
           cd vim
           ..\all-in-one.bat
-
-      - name: Upload nightlybuild-tabsidebar-for-windows.zip
-        uses: actions/upload-artifact@v1
-        with:
-          name: nightlybuild-tabsidebar-for-windows
-          path: vim\nightlybuild-tabsidebar-for-windows
-
+          
       - name: Upload gvim-x86.exe
         uses: actions/upload-artifact@v1
         with:
@@ -99,3 +93,32 @@ jobs:
         with:
           name: vim-x64.exe
           path: vim\src\vim-x64.exe
+
+      - name: Upload 
+        uses: actions/upload-artifact@v1
+        with:
+          name: nightlybuild-tabsidebar-for-windows
+          path: vim\nightlybuild-tabsidebar-for-windows
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release
+          draft: false
+          prerelease: false
+
+      - name: Upload nightlybuild-tabsidebar-for-windows.zip as Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./nightlybuild-tabsidebar-for-windows.zip
+          asset_name: nightlybuild-tabsidebar-for-windows.zip
+          asset_content_type: application/zip
+          
