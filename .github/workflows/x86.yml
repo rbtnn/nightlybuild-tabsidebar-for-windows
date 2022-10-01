@@ -1,6 +1,7 @@
 name: nightlybuild-tabsidebar-for-windows for x86
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 15 * * *'
 
