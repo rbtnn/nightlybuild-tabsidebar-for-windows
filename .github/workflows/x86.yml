@@ -1,4 +1,4 @@
-name: nightlybuild-tabsidebar-for-windows
+name: nightlybuild-tabsidebar-for-windows for x86
 
 on:
   schedule:
