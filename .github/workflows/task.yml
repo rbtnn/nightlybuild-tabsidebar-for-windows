@@ -1,6 +1,7 @@
 name: nightlybuild-tabsidebar-for-windows
 
 on:
+  post:
   schedule:
     - cron: '0 15 * * *'
 
