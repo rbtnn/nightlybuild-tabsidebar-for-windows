@@ -19,7 +19,6 @@ jobs:
         shell: cmd
         run: |
           vimver.bat
-          type version.txt
 
       - name: test cmds
         shell: cmd
