@@ -1,0 +1,28 @@
+name: nightlybuild-tabsidebar-for-windows for x86
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 15 * * *'
+
+jobs:
+
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout actions/checkout@v2
+        uses: actions/checkout@v2
+        
+      - name: vimver.bat
+        id: vimver
+        shell: cmd
+        run: |
+          vimver.bat
+          type version.txt
+
+      - name: test cmds
+        shell: cmd
+        run: |
+          echo "${{ steps.vimver.outputs.vimver }}"
+          
