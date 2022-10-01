@@ -1,7 +1,7 @@
-VIM - Vi IMproved 9.0 (2022 Jun 28, compiled Sep 30 2022 15:10:18)
+VIM - Vi IMproved 9.0 (2022 Jun 28, compiled Oct  1 2022 02:18:17)
 MS-Windows 32-bit console version
-Included patches: 1-628
-Compiled by runneradmin@fv-az250-188
+Included patches: 1-631
+Compiled by runneradmin@fv-az365-160
 Huge version without GUI.  Features included (+) or not (-):
 +acl                +ex_extra           +multi_lang         -tag_old_static
 +arabic             +extra_search       -mzscheme           -tag_any_white
