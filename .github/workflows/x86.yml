@@ -31,7 +31,7 @@ jobs:
         with:
           arch: x86
 
-      - name: Build Vim for x86
+      - name: Build Vim
         shell: cmd
         run: |
           cd vim\src
