@@ -33,8 +33,8 @@ curl -L https://github.com/rprichard/winpty/releases/download/0.4.3/winpty-0.4.3
 curl -L https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep-13.0.0-i686-pc-windows-msvc.zip --output ripgrep.zip
 curl -L https://github.com/universal-ctags/ctags-win32/releases/download/2022-09-27/p5.9.20220925.0-2-g34f1c6a/ctags-2022-09-27_p5.9.20220925.0-2-g34f1c6a-x86.zip --output ctags.zip
 
-copy src\gvim-x86.exe      "%NAME%\gvim.exe"
-copy src\vim-x86.exe       "%NAME%\vim.exe"
+copy src\gvim.exe      "%NAME%\gvim.exe"
+copy src\vim.exe       "%NAME%\vim.exe"
 copy src\vimrun.exe    "%NAME%"
 copy src\xxd\xxd.exe   "%NAME%"
 copy src\tee\tee.exe   "%NAME%"
