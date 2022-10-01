@@ -13,7 +13,22 @@ jobs:
     steps:
       - name: Checkout actions/checkout@v2
         uses: actions/checkout@v2
-
+        
+      - name: vimver.bat
+        id: vimver
+        shell: cmd
+        run: |
+          vimver.bat
+          
+      - name: Update version.txt
+        shell: cmd
+        run: |
+          git config --global user.email "naru123456789@gmail.com"
+          git config --global user.name "rbtnn"
+          git add version.txt
+          git commit -m "Release-${{ steps.vimver.outputs.vimver }}"
+          git push -u origin master
+          
       - name: Update tabsidebar repository
         shell: cmd
         run: |
@@ -38,22 +53,6 @@ jobs:
           nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
           nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
 
-      - name: Type tagname
-        id: tagname
-        shell: cmd
-        run: |
-          vim\src\vim.exe -u NONO -N --cmd ":call writefile(['::set-output name=tagname::' .. v:versionlong], 'version.txt')" --cmd ":qa!"
-          type version.txt
-
-      - name: Update version.txt
-        shell: cmd
-        run: |
-          git config --global user.email "naru123456789@gmail.com"
-          git config --global user.name "rbtnn"
-          git add version.txt
-          git commit -m "Release-${{ steps.tagname.outputs.tagname }}"
-          git push -u origin master
-
       - name: create-zip.bat
         shell: cmd
         run: |
@@ -66,8 +65,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          tag_name: ${{ steps.tagname.outputs.tagname }}
-          release_name: Release-${{ steps.tagname.outputs.tagname }}
+          tag_name: ${{ steps.vimver.outputs.vimver }}
+          release_name: Release-${{ steps.vimver.outputs.vimver }}
           draft: false
           prerelease: false
 
