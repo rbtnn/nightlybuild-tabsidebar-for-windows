@@ -37,38 +37,21 @@ jobs:
           cd vim\src
           nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
           nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
-          move gvim.exe gvim-x86.exe
-          move vim.exe  vim-x86.exe
 
-#      - name: Checkout ilammy/msvc-dev-cmd@v1
-#        uses: ilammy/msvc-dev-cmd@v1
-#        with:
-#          arch: x64
-#
-#      - name: Build Vim for x64
-#        shell: cmd
-#        run: |
-#          cd vim\src
-#          nmake /nologo /f Make_mvc.mak GUI=yes USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
-#          nmake /nologo /f Make_mvc.mak GUI=no  USE_WIN32MAK=no COLOR_EMOJI=yes OLE=yes DYNAMIC_IME=yes IME=yes GIME=yes DEBUG=no ICONV=yes
-#          move gvim.exe gvim-x64.exe
-#          move vim.exe  vim-x64.exe
-
-      - name: type tagname.txt
+      - name: Type tagname
         id: tagname
         shell: cmd
         run: |
-          vim\src\vim-x86.exe -u NONO -N --cmd ":call writefile(['::set-output name=tagname::' .. v:versionlong], 'tagname.txt')" --cmd ":qa!"
-          type tagname.txt
-      
+          vim\src\vim.exe -u NONO -N --cmd ":call writefile(['::set-output name=tagname::' .. v:versionlong], 'version.txt')" --cmd ":qa!"
+          type version.txt
+
       - name: Update version.txt
         shell: cmd
         run: |
           git config --global user.email "naru123456789@gmail.com"
           git config --global user.name "rbtnn"
-          vim\src\vim-x86.exe -u NONO -N --cmd ":call writefile(split(execute('version'), '\n'), 'version.txt')" --cmd ":qa!"
           git add version.txt
-          git commit -m "update version.txt"
+          git commit -m "Release-${{ steps.tagname.outputs.tagname }}"
           git push -u origin master
 
       - name: create-zip.bat
