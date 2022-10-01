@@ -1,7 +1,6 @@
 name: nightlybuild-tabsidebar-for-windows
 
 on:
-  push:
   schedule:
     - cron: '0 15 * * *'
 
@@ -54,6 +53,13 @@ jobs:
 #          move gvim.exe gvim-x64.exe
 #          move vim.exe  vim-x64.exe
 
+      - name: type tagname.txt
+        id: tagname
+        shell: cmd
+        run: |
+          vim\src\vim-x86.exe -u NONO -N --cmd ":call writefile(['::set-output name=tagname::' .. v:versionlong], 'tagname.txt')" --cmd ":qa!"
+          type tagname.txt
+      
       - name: Update version.txt
         shell: cmd
         run: |
@@ -64,11 +70,11 @@ jobs:
           git commit -m "update version.txt"
           git push -u origin master
 
-      - name: all-in-one.bat
+      - name: create-zip.bat
         shell: cmd
         run: |
           cd vim
-          ..\all-in-one.bat
+          ..\create-zip.bat
 
       - name: Create Release
         id: create_release
@@ -76,7 +82,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ steps.tagname.outputs.tagname }}
           release_name: Release
           draft: false
           prerelease: false
