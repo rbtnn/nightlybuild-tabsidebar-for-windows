@@ -19,7 +19,8 @@ jobs:
         shell: cmd
         run: |
           vimver.bat
-          
+          type version.txt
+
       - name: Update version.txt
         shell: cmd
         run: |
