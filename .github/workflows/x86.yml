@@ -3,7 +3,8 @@ name: nightlybuild-tabsidebar-for-windows for x86
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 15 * * *'
+    # 毎日日本時間の午前8時に実施する。
+    - cron: '0 23 * * *'
 
 jobs:
 
