@@ -32,7 +32,11 @@ jobs:
           git fetch upstream
           git merge upstream/master
           git push -u origin tabsidebar
-
+          git checkout tabsidebar_disabled
+          git merge tabsidebar
+          git push -u origin tabsidebar_disabled
+          git checkout tabsidebar
+                    
       - name: Checkout ilammy/msvc-dev-cmd@v1
         uses: ilammy/msvc-dev-cmd@v1
         with:
