@@ -29,7 +29,7 @@ jobs:
           git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
           cd vim
           git remote add upstream https://github.com/vim/vim.git
-          git fetch upstream -n --depth 1
+          git fetch upstream
           git merge upstream/master
           git push -u origin tabsidebar
           git checkout tabsidebar_disabled
