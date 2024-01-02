@@ -19,7 +19,7 @@ jobs:
         id: vimver
         shell: cmd
         run: |
-          vimver.bat
+          vimver.bat >> $GITHUB_OUTPUT
           
       - name: Update tabsidebar repository
         shell: cmd
@@ -80,6 +80,7 @@ jobs:
       - name: Update version.txt
         shell: cmd
         run: |
+          echo "[DEBUG] ${{ steps.vimver.outputs.vimver }}"
           git config --global user.email "naru123456789@gmail.com"
           git config --global user.name "rbtnn"
           echo ${{ steps.vimver.outputs.vimver }} > version.txt
