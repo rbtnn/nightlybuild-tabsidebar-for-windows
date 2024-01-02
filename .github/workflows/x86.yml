@@ -19,7 +19,7 @@ jobs:
         id: vimver
         shell: cmd
         run: |
-          vimver.bat >> $GITHUB_OUTPUT
+          vimver.bat >> %GITHUB_OUTPUT%
           
       - name: Update tabsidebar repository
         shell: cmd
@@ -29,7 +29,7 @@ jobs:
           git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
           cd vim
           git remote add upstream https://github.com/vim/vim.git
-          git fetch upstream
+          git fetch upstream -n --depth 1
           git merge upstream/master
           git push -u origin tabsidebar
           git checkout tabsidebar_disabled
