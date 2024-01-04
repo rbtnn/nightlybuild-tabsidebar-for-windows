@@ -57,13 +57,10 @@ jobs:
 
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          tag_name: ${{ steps.vimver.outputs.vimver }}
-          release_name: Release-${{ steps.vimver.outputs.vimver }}
-          draft: false
+          repo_token: ${{ secrets.PERSONAL_TOKEN }}
+          automatic_release_tag: ${{ steps.vimver.outputs.vimver }}
           prerelease: false
 
       - name: Upload nightlybuild-tabsidebar-for-windows.zip as Release Asset
