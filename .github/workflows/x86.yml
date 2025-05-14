@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     # 毎日日本時間の午前8時に実施する。
-    - cron: '0 23 * * *'
+    #- cron: '0 23 * * *'
 
 jobs:
 
