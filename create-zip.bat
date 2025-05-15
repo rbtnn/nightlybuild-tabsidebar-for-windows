@@ -1,5 +1,5 @@
 
-set NAME=nightlybuild-tabsidebar-for-windows
+set NAME=vim-nightlybuild-for-windows
 
 if exist "%NAME%.zip" (
 	del /Q "%NAME%.zip"
