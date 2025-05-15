@@ -3,7 +3,6 @@ name: vim-nightlybuild-for-windows for x86
 on:
   workflow_dispatch:
   schedule:
-    # 毎日日本時間の午前8時に実施する。
     - cron: '0 23 * * *'
 
 jobs:
@@ -21,19 +20,13 @@ jobs:
         run: |
           vimver.bat >> %GITHUB_OUTPUT%
           
-      - name: Update tabsidebar repository
+      - name: clone vim repository
         shell: cmd
         run: |
           git config --global user.email "naru123456789@gmail.com"
           git config --global user.name "rbtnn"
-          # git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
           git clone --depth 1 https://github.com/vim/vim.git
-          # cd vim
-          # git remote add upstream https://github.com/vim/vim.git
-          # git fetch upstream
-          # git merge upstream/master
-          # git push -u origin tabsidebar
-                    
+                   
       - name: Checkout ilammy/msvc-dev-cmd@v1
         uses: ilammy/msvc-dev-cmd@v1
         with:
