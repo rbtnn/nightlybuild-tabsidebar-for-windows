@@ -1,10 +1,10 @@
-name: nightlybuild-tabsidebar-for-windows for x86
+name: vim-nightlybuild-for-windows for x86
 
 on:
   workflow_dispatch:
   schedule:
     # 毎日日本時間の午前8時に実施する。
-    #- cron: '0 23 * * *'
+    - cron: '0 23 * * *'
 
 jobs:
 
@@ -26,12 +26,13 @@ jobs:
         run: |
           git config --global user.email "naru123456789@gmail.com"
           git config --global user.name "rbtnn"
-          git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
-          cd vim
-          git remote add upstream https://github.com/vim/vim.git
-          git fetch upstream
-          git merge upstream/master
-          git push -u origin tabsidebar
+          # git clone https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/rbtnn/vim.git
+          git clone --depth 1 https://github.com/vim/vim.git
+          # cd vim
+          # git remote add upstream https://github.com/vim/vim.git
+          # git fetch upstream
+          # git merge upstream/master
+          # git push -u origin tabsidebar
                     
       - name: Checkout ilammy/msvc-dev-cmd@v1
         uses: ilammy/msvc-dev-cmd@v1
@@ -59,15 +60,15 @@ jobs:
           automatic_release_tag: ${{ steps.vimver.outputs.vimver }}
           prerelease: false
 
-      - name: Upload nightlybuild-tabsidebar-for-windows.zip as Release Asset
+      - name: Upload vim-nightlybuild-for-windows.zip as Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./vim/nightlybuild-tabsidebar-for-windows.zip
-          asset_name: nightlybuild-tabsidebar-for-windows.zip
+          asset_path: ./vim/vim-nightlybuild-for-windows.zip
+          asset_name: vim-nightlybuild-for-windows.zip
           asset_content_type: application/zip
    
       - name: Update version.txt
