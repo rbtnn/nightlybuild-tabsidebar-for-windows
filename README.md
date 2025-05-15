@@ -1,6 +1,6 @@
 
-# nightlybuild-tabsidebar-for-windows
+# vim-nightlybuild-for-windows
 
-![](https://github.com/rbtnn/nightlybuild-tabsidebar-for-windows/workflows/nightlybuild-tabsidebar-for-windows/badge.svg)
+![](https://github.com/rbtnn/vim-nightlybuild-for-windows/workflows/vim-nightlybuild-for-windows/badge.svg)
 
-This repository is to build [Vim with tabsidebar](https://github.com/rbtnn/vim) for Windows by Github Actions automatically.
+This repository is to build [rbtnn/vim](https://github.com/rbtnn/vim) for Windows by Github Actions automatically.
